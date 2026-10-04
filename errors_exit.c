@@ -1,35 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   finished_array.c                                   :+:      :+:    :+:   */
+/*   errors_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meharuty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/13 15:07:37 by meharuty          #+#    #+#             */
-/*   Updated: 2026/04/13 15:07:40 by meharuty         ###   ########.fr       */
+/*   Created: 2026/04/13 15:04:57 by meharuty          #+#    #+#             */
+/*   Updated: 2026/04/13 15:04:59 by meharuty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*finished_array(int argc, char **argv)
+void	free_all(char **ptr)
 {
-	char	*arr;
-	char	*tmp;
-	int		i;
-	int		j;
+	int	m;
 
-	i = argc;
-	j = 1;
-	arr = ft_strdup(argv[j]);
-	j++;
-	while (j < i)
+	m = 0;
+	while (ptr[m])
+		free(ptr[m++]);
+	free(ptr);
+}
+
+void	error_exit(void)
+{
+	write(2, "Error\n", 6);
+	exit(1);
+}
+
+void	error_checker(char *ptr)
+{
+	char	**arr;
+	int		i;
+
+	i = 0;
+	arr = ft_split(ptr, ' ');
+	while (arr[i])
 	{
-		tmp = ft_strjoin(arr, " ");
-		free(arr);
-		arr = ft_strjoin(tmp, argv[j]);
-		free(tmp);
-		j++;
+		if (!check_one_arg(arr[i]) || !check_overflow(arr[i]))
+		{
+			write(2, "Error\n", 6);
+			free_all(arr);
+			exit(1);
+		}
+		i++;
 	}
-	return (arr);
+	free_all(arr);
 }

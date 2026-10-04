@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   finished_array.c                                   :+:      :+:    :+:   */
+/*   strategies_adapt.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharuty <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sarzuman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/13 15:07:37 by meharuty          #+#    #+#             */
-/*   Updated: 2026/04/13 15:07:40 by meharuty         ###   ########.fr       */
+/*   Created: 2026/04/13 15:24:09 by sarzuman          #+#    #+#             */
+/*   Updated: 2026/04/13 15:24:10 by sarzuman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*finished_array(int argc, char **argv)
+void	strategy_adaptive(t_ps *ps, double disorder)
 {
-	char	*arr;
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = argc;
-	j = 1;
-	arr = ft_strdup(argv[j]);
-	j++;
-	while (j < i)
-	{
-		tmp = ft_strjoin(arr, " ");
-		free(arr);
-		arr = ft_strjoin(tmp, argv[j]);
-		free(tmp);
-		j++;
-	}
-	return (arr);
+	if (disorder < 0.2)
+		strategy_simple(ps);
+	else if (disorder < 0.5)
+		strategy_medium(ps);
+	else
+		strategy_complex(ps);
 }
